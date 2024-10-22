@@ -1,17 +1,23 @@
 package tn.esprit.gestionzoo.entities;
-
+import tn.esprit.gestionzoo.entities.*;
 public class Zoo {
 
     public static final int NUMBER_OF_CAGES = 25;
+    private static final int MAX_AQUATIC_ANIMALS = 10;
+
     private Animal[] animals;
+    private Aquatic[] aquaticAnimals; // Array for aquatic animals
     private String name, city;
     private int nbrAnimals;
+    private int nbrAquaticAnimals;  // Counter for aquatic animals
 
     public Zoo() {
+        animals = new Animal[NUMBER_OF_CAGES];
+        aquaticAnimals = new Aquatic[MAX_AQUATIC_ANIMALS];
     }
 
     public Zoo(String name, String city) {
-        animals = new Animal[NUMBER_OF_CAGES];
+        this();
         this.name = name;
         this.city = city;
     }
@@ -55,6 +61,18 @@ public class Zoo {
 
     public void setNbrAnimals(int nbrAnimals) {
         this.nbrAnimals = nbrAnimals;
+    }
+    public int getNbrAquaticAnimals() {
+        return nbrAquaticAnimals;
+    }
+    public void setNbrAquaticAnimals(int nbrAquaticAnimals) {
+        this.nbrAquaticAnimals = nbrAquaticAnimals;
+    }
+    public Aquatic[] getAquaticAnimals() {
+        return aquaticAnimals;
+    }
+    public void setAquaticAnimals(Aquatic[] aquaticAnimals) {
+        this.aquaticAnimals = aquaticAnimals;
     }
 
     void displayZoo() {
@@ -107,4 +125,52 @@ public class Zoo {
     public String toString() {
         return "Name: " + name + ", City: " + city + ", N° Cages: " + NUMBER_OF_CAGES + " N° animals: " + nbrAnimals;
     }
-}
+
+    public void addAquaticAnimal(Aquatic aquatic) {
+        if (nbrAquaticAnimals < MAX_AQUATIC_ANIMALS) {
+            aquaticAnimals[nbrAquaticAnimals] = aquatic;
+            nbrAquaticAnimals++;
+        } else {
+            System.out.println("The zoo has reached the maximum number of aquatic animals.");
+        }
+    }
+    public void displayAquaticAnimalsSwimming() {
+        System.out.println("Aquatic animals swimming:");
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            aquaticAnimals[i].swim();
+        }
+    }
+    public float maxPenguinSwimmingDepth() {
+        float maxDepth = 0;
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            if (aquaticAnimals[i] instanceof Penguin) {
+                Penguin penguin = (Penguin) aquaticAnimals[i];
+                if (penguin.getSwimmingDepth() > maxDepth) {
+                    maxDepth = penguin.getSwimmingDepth();
+                }
+            }
+        }
+        return maxDepth;
+    }
+    public void displayNumberOfAquaticsByType() {
+        int dolphinCount = 0;
+        int penguinCount = 0;
+
+        for (int i = 0; i < nbrAquaticAnimals; i++) {
+            if (aquaticAnimals[i] instanceof Dolphin) {
+                dolphinCount++;
+            } else if (aquaticAnimals[i] instanceof Penguin) {
+                penguinCount++;
+            }
+        }
+
+        System.out.println("Number of dolphins: " + dolphinCount);
+        System.out.println("Number of penguins: " + penguinCount);
+    }
+
+
+
+    }
+
+
+
