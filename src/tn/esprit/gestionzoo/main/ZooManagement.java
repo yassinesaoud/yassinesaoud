@@ -1,25 +1,35 @@
 package tn.esprit.gestionzoo.main;
 
 import tn.esprit.gestionzoo.entities.*;
+import tn.esprit.gestionzoo.exceptions.*;
 
 public class ZooManagement {
     public static void main(String[] args) {
-        Dolphin dolphin1 = new Dolphin("Aquatic", "Flipper", 5, true, "Ocean", 20.5f);
-        Penguin penguin1 = new Penguin("Aquatic", "Pingu", 3, false, "Antarctica", 15.0f);
-        Dolphin dolphin2 = new Dolphin("Aquatic", "Splash", 4, true, "Sea", 18.0f);
-
         Zoo zoo = new Zoo("AquaZoo", "Monastir");
-        zoo.addAquaticAnimal(dolphin1);
-        zoo.addAquaticAnimal(penguin1);
-        zoo.addAquaticAnimal(dolphin2);
 
-        // Display aquatic animals swimming
-        zoo.displayAquaticAnimalsSwimming();
+        try {
+            // Creating some animals
+            Animal lion = new Animal("Feline", "Simba", -1, true);
+            Animal tiger = new Animal("Feline", "Shere Khan", 6, true);
+            Animal elephant = new Animal("Mammal", "Dumbo", 10, true);
+            Animal bear = new Animal("Mammal", "Baloo", 5, true);
 
-        // Find max penguin swimming depth
-        System.out.println("Max penguin swimming depth: " + zoo.maxPenguinSwimmingDepth());
+            // Adding animals and handling exceptions
+            zoo.addAnimal(lion);
+            System.out.println("Number of animals in the zoo: " + zoo.getNbrAnimals());
 
-        // Display number of dolphins and penguins
-        zoo.displayNumberOfAquaticsByType();
+            zoo.addAnimal(tiger);
+            System.out.println("Number of animals in the zoo: " + zoo.getNbrAnimals());
+
+            zoo.addAnimal(elephant);
+            System.out.println("Number of animals in the zoo: " + zoo.getNbrAnimals());
+
+            // This one should trigger the exception
+            zoo.addAnimal(bear);
+            System.out.println("Number of animals in the zoo: " + zoo.getNbrAnimals());
+
+        } catch (ZooFullException | InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

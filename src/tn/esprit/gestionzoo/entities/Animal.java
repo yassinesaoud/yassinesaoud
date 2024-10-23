@@ -39,9 +39,9 @@ public class Animal {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(int age) throws IllegalArgumentException {
         if (age < 0)
-            System.out.println("The age must a positive number");
+            throw new IllegalArgumentException("age cannot be negative"+ age);
         else
             this.age = age;
     }

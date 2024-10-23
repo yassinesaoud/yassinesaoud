@@ -1,5 +1,8 @@
 package tn.esprit.gestionzoo.entities;
 import tn.esprit.gestionzoo.entities.*;
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
+
 public class Zoo {
 
     public static final int NUMBER_OF_CAGES = 25;
@@ -79,15 +82,17 @@ public class Zoo {
         System.out.println("Name: " + name + ", City: " + city + ", N° Cages: " + NUMBER_OF_CAGES + " N° animals: " + nbrAnimals);
     }
 
-    public boolean addAnimal(Animal animal) {
-        if (searchAnimal(animal) != -1)
-            return false;
-        if (isZooFull())
-            return false;
+    public void addAnimal(Animal animal) throws ZooFullException, InvalidAgeException {
+        if (nbrAnimals >= NUMBER_OF_CAGES) {
+            throw new ZooFullException("The zoo is full. Cannot add more animals.");
+        }
+        if(animal.getAge()<0){
+            throw new InvalidAgeException("the age cannot be negative must be postive or zero");
+        }
         animals[nbrAnimals] = animal;
         nbrAnimals++;
-        return true;
     }
+
 
     public boolean removeAnimal(Animal animal) {
         int indexAnimal = searchAnimal(animal);
