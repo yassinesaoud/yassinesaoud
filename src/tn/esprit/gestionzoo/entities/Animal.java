@@ -1,5 +1,7 @@
 package tn.esprit.gestionzoo.entities;
 
+import tn.esprit.gestionzoo.enums.Food;
+
 public class Animal {
 
     private String family, name;
@@ -62,5 +64,14 @@ public class Animal {
                 ", age=" + age +
                 ", isMammal=" + isMammal +
                 '}';
+    }
+
+    public void eatMeat(Food Meat) {
+    }
+
+    public void eatPlant(Food Plant) {
+    }
+
+    public void eatBoth(Food Both) {
     }
 }

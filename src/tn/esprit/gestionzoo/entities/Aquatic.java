@@ -1,6 +1,11 @@
 package tn.esprit.gestionzoo.entities;
+import tn.esprit.gestionzoo.enums.Food;
+import tn.esprit.gestionzoo.interfaces.Carnivore;
 
-public abstract class Aquatic extends Animal {
+import java.util.Objects;
+
+
+public abstract class Aquatic extends Animal implements Carnivore<Food> {
     private String habitat;
 
     public Aquatic() {}
@@ -16,6 +21,28 @@ public abstract class Aquatic extends Animal {
 
     public void setHabitat(String habitat) {
         this.habitat = habitat;
+    }
+    public void eatMeat(Food meat) {
+        if(meat == Food.MEAT){
+            System.out.println(getName()+"is eating meat");
+        }else{
+            System.out.println(getName()+"cannot eat this type of food ");
+        }
+
+    }
+    public void eatPlant(Food plant) {
+        if(plant == Food.PLANT){
+            System.out.println(getName()+"is eating plant");
+        }else{
+            System.out.println(getName()+"cannot eat this type of food ");
+        }
+    }
+    public void eatBoth(Food Both) {
+        if(Both == Food.PLANT || Both == Food.MEAT){
+            System.out.println(getName()+"is eating both");
+            eatMeat(Both);
+            eatPlant(Both);
+        }
     }
 
     @Override

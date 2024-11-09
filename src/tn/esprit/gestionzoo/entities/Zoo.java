@@ -2,6 +2,8 @@ package tn.esprit.gestionzoo.entities;
 import tn.esprit.gestionzoo.entities.*;
 import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
 import tn.esprit.gestionzoo.exceptions.ZooFullException;
+import tn.esprit.gestionzoo.interfaces.*;
+import tn.esprit.gestionzoo.enums.Food;
 
 public class Zoo {
 
