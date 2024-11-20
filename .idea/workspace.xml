@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61f67b24-e7af-4233-aa53-bbe544e61125" name="Changes" comment="prosit 9 de employe" />
+    <list default="true" id="61f67b24-e7af-4233-aa53-bbe544e61125" name="Changes" comment="prosit 10 de employe">
+      <change afterPath="$PROJECT_DIR$/src/tn/esprit/gestionEmployee/entites/AffectationHashMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tn/esprit/gestionEmployee/main/MainAffectation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,11 +25,16 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="employe" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2p5N04kQt9DLwYMtyo2SdGiWD02" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -33,6 +44,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Application.MainAffectation.executor": "Run",
+    "Application.MainDepartment.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
@@ -43,14 +56,20 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419" />
-        <option value="bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
       </set>
     </attachedChunks>
   </component>
@@ -62,7 +81,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732051753020</updated>
-      <workItem from="1732051754142" duration="1703000" />
+      <workItem from="1732051754142" duration="2075000" />
+      <workItem from="1732697540787" duration="1719000" />
+      <workItem from="1732699806795" duration="1677000" />
     </task>
     <task id="LOCAL-00001" summary="prosit 9 de employe">
       <option name="closed" value="true" />
@@ -72,7 +93,31 @@
       <option name="project" value="LOCAL" />
       <updated>1732053466819</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="prosit 9 de employe">
+      <option name="closed" value="true" />
+      <created>1732053655797</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732053655797</updated>
+    </task>
+    <task id="LOCAL-00003" summary="prosit 10 de employe">
+      <option name="closed" value="true" />
+      <created>1732099356553</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732099356553</updated>
+    </task>
+    <task id="LOCAL-00004" summary="prosit 10 de employe">
+      <option name="closed" value="true" />
+      <created>1732099818587</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732099818587</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,6 +125,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="prosit 9 de employe" />
-    <option name="LAST_COMMIT_MESSAGE" value="prosit 9 de employe" />
+    <MESSAGE value="fixup! prosit 10 de employe" />
+    <MESSAGE value="prosit 10 de employe" />
+    <option name="LAST_COMMIT_MESSAGE" value="prosit 10 de employe" />
   </component>
 </project>

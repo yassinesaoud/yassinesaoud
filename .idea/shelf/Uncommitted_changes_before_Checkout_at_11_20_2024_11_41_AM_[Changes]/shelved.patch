@@ -1,0 +1,391 @@
+Index: src/tn/esprit/gestionEmployee/entites/Departement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/tn/esprit/gestionEmployee/entites/Departement.java b/src/tn/esprit/gestionEmployee/entites/Departement.java
+new file mode 100644
+--- /dev/null	(date 1732098635523)
++++ b/src/tn/esprit/gestionEmployee/entites/Departement.java	(date 1732098635523)
+@@ -0,0 +1,61 @@
++package tn.esprit.gestionEmployee.entites;
++
++public class Departement {
++    private int id;
++    private String nom;
++    private int nombreEmployes;
++
++    // No-argument constructor
++    public Departement() {}
++
++    // Constructor with parameters
++    public Departement(int id, String nom, int nombreEmployes) {
++        this.id = id;
++        this.nom = nom;
++        this.nombreEmployes = nombreEmployes;
++    }
++
++    // Getters and Setters
++    public int getId() {
++        return id;
++    }
++
++    public void setId(int id) {
++        this.id = id;
++    }
++
++    public String getNom() {
++        return nom;
++    }
++
++    public void setNom(String nom) {
++        this.nom = nom;
++    }
++
++    public int getNombreEmployes() {
++        return nombreEmployes;
++    }
++
++    public void setNombreEmployes(int nombreEmployes) {
++        this.nombreEmployes = nombreEmployes;
++    }
++
++    // Override equals to compare by id and nom
++    @Override
++    public boolean equals(Object obj) {
++        if (this == obj) return true;
++        if (obj == null || getClass() != obj.getClass()) return false;
++        Departement that = (Departement) obj;
++        return id == that.id && nom.equals(that.nom);
++    }
++
++    // Override toString to display department details
++    @Override
++    public String toString() {
++        return "Departement{" +
++                "id=" + id +
++                ", nom='" + nom + '\'' +
++                ", nombreEmployes=" + nombreEmployes +
++                '}';
++    }
++}
+Index: src/tn/esprit/gestionEmployee/entites/DepartementHashSet.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/tn/esprit/gestionEmployee/entites/DepartementHashSet.java b/src/tn/esprit/gestionEmployee/entites/DepartementHashSet.java
+new file mode 100644
+--- /dev/null	(date 1732098754486)
++++ b/src/tn/esprit/gestionEmployee/entites/DepartementHashSet.java	(date 1732098754486)
+@@ -0,0 +1,61 @@
++package tn.esprit.gestionEmployee.entites;
++
++import tn.esprit.gestionEmployee.interfaces.IDepartement;
++
++import java.util.HashSet;
++import java.util.TreeSet;
++
++public class DepartementHashSet implements IDepartement<Departement> {
++    private HashSet<Departement> departements = new HashSet<>();
++
++    @Override
++    public void ajouterDepartement(Departement t) {
++        if (departements.add(t)) {
++            System.out.println("Department added successfully!");
++        } else {
++            System.out.println("Department already exists!");
++        }
++    }
++
++    @Override
++    public boolean rechercherDepartement(String nom) {
++        for (Departement d : departements) {
++            if (d.getNom().equalsIgnoreCase(nom)) {
++                return true;
++            }
++        }
++        return false;
++    }
++
++    @Override
++    public boolean rechercherDepartement(Departement t) {
++        return departements.contains(t);
++    }
++
++    @Override
++    public void supprimerDepartement(Departement t) {
++        if (departements.remove(t)) {
++            System.out.println("Department removed successfully!");
++        } else {
++            System.out.println("Department not found!");
++        }
++    }
++
++    @Override
++    public void displayDepartement() {
++        if (departements.isEmpty()) {
++            System.out.println("No departments to display.");
++        } else {
++            for (Departement d : departements) {
++                System.out.println(d);
++            }
++        }
++    }
++
++    @Override
++    public TreeSet<Departement> trierDepartementById() {
++        TreeSet<Departement> sortedSet = new TreeSet<>((d1, d2) -> Integer.compare(d1.getId(), d2.getId()));
++        sortedSet.addAll(departements);
++        return sortedSet;
++    }
++}
+Index: src/tn/esprit/gestionEmployee/interfaces/IDepartement.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/tn/esprit/gestionEmployee/interfaces/IDepartement.java b/src/tn/esprit/gestionEmployee/interfaces/IDepartement.java
+new file mode 100644
+--- /dev/null	(date 1732098701480)
++++ b/src/tn/esprit/gestionEmployee/interfaces/IDepartement.java	(date 1732098701480)
+@@ -0,0 +1,12 @@
++package tn.esprit.gestionEmployee.interfaces;
++
++import java.util.TreeSet;
++
++public interface IDepartement<T> {
++    void ajouterDepartement(T t);
++    boolean rechercherDepartement(String nom);
++    boolean rechercherDepartement(T t);
++    void supprimerDepartement(T t);
++    void displayDepartement();
++    TreeSet<T> trierDepartementById();
++}
+Index: src/tn/esprit/gestionEmployee/main/MainDepartment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/tn/esprit/gestionEmployee/main/MainDepartment.java b/src/tn/esprit/gestionEmployee/main/MainDepartment.java
+new file mode 100644
+--- /dev/null	(date 1732099201732)
++++ b/src/tn/esprit/gestionEmployee/main/MainDepartment.java	(date 1732099201732)
+@@ -0,0 +1,104 @@
++package tn.esprit.gestionEmployee.main;
++
++import tn.esprit.gestionEmployee.entites.Departement;
++import tn.esprit.gestionEmployee.entites.DepartementHashSet;
++
++import java.util.Scanner;
++
++public class MainDepartment {
++    public static void main(String[] args) {
++        DepartementHashSet gestionDepartements = new DepartementHashSet();
++        Scanner scanner = new Scanner(System.in);
++        int choice;
++
++        do {
++            System.out.println("\n--- Department Management System ---");
++            System.out.println("1. Add Department");
++            System.out.println("2. Display Departments");
++            System.out.println("3. Search Department by Name");
++            System.out.println("4. Search Department by Object");
++            System.out.println("5. Remove Department");
++            System.out.println("6. Display Departments Sorted by ID");
++            System.out.println("0. Exit");
++            System.out.print("Enter your choice: ");
++            choice = scanner.nextInt();
++            scanner.nextLine(); // Consume newline
++
++            switch (choice) {
++                case 1:
++                    // Add Department
++                    System.out.print("Enter Department ID: ");
++                    int id = scanner.nextInt();
++                    scanner.nextLine();
++
++                    System.out.print("Enter Department Name: ");
++                    String nom = scanner.nextLine();
++
++                    System.out.print("Enter Number of Employees: ");
++                    int nombreEmployes = scanner.nextInt();
++
++                    Departement newDept = new Departement(id, nom, nombreEmployes);
++                    gestionDepartements.ajouterDepartement(newDept);
++                    break;
++
++                case 2:
++                    // Display Departments
++                    System.out.println("\n--- List of Departments ---");
++                    gestionDepartements.displayDepartement();
++                    break;
++
++                case 3:
++                    // Search Department by Name
++                    System.out.print("Enter Department Name to Search: ");
++                    String searchNom = scanner.nextLine();
++                    boolean foundByName = gestionDepartements.rechercherDepartement(searchNom);
++                    System.out.println(foundByName ? "Department found!" : "Department not found.");
++                    break;
++
++                case 4:
++                    // Search Department by Object
++                    System.out.print("Enter Department ID: ");
++                    int searchId = scanner.nextInt();
++                    scanner.nextLine();
++
++                    System.out.print("Enter Department Name: ");
++                    String searchName = scanner.nextLine();
++
++                    Departement searchDept = new Departement(searchId, searchName, 0);
++                    boolean foundByObject = gestionDepartements.rechercherDepartement(searchDept);
++                    System.out.println(foundByObject ? "Department found!" : "Department not found.");
++                    break;
++
++                case 5:
++                    // Remove Department
++                    System.out.print("Enter Department ID: ");
++                    int removeId = scanner.nextInt();
++                    scanner.nextLine();
++
++                    System.out.print("Enter Department Name: ");
++                    String removeName = scanner.nextLine();
++
++                    Departement removeDept = new Departement(removeId, removeName, 0);
++                    gestionDepartements.supprimerDepartement(removeDept);
++                    break;
++
++                case 6:
++                    // Display Sorted Departments
++                    System.out.println("\n--- Departments Sorted by ID ---");
++                    for (Departement d : gestionDepartements.trierDepartementById()) {
++                        System.out.println(d);
++                    }
++                    break;
++
++                case 0:
++                    System.out.println("Exiting the program...");
++                    break;
++
++                default:
++                    System.out.println("Invalid choice. Please try again.");
++            }
++        } while (choice != 0);
++
++        scanner.close();
++    }
++}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"61f67b24-e7af-4233-aa53-bbe544e61125\" name=\"Changes\" comment=\"prosit 9 de employe\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 2\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"2p5N04kQt9DLwYMtyo2SdGiWD02\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"prosit9__employe\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.20224.419\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-410509235cf1-JavaScript-IU-242.20224.419\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"61f67b24-e7af-4233-aa53-bbe544e61125\" name=\"Changes\" comment=\"\" />\r\n      <created>1732051753020</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1732051753020</updated>\r\n      <workItem from=\"1732051754142\" duration=\"2075000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"prosit 9 de employe\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732053466819</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732053466819</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"prosit 9 de employe\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1732053655797</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1732053655797</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"3\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"prosit 9 de employe\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"prosit 9 de employe\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 3b4e3022b45a96c43f0736b0646c5d1568ea09dc)
++++ b/.idea/workspace.xml	(date 1732099129998)
+@@ -4,7 +4,12 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="61f67b24-e7af-4233-aa53-bbe544e61125" name="Changes" comment="prosit 9 de employe" />
++    <list default="true" id="61f67b24-e7af-4233-aa53-bbe544e61125" name="Changes" comment="prosit 9 de employe">
++      <change afterPath="$PROJECT_DIR$/src/tn/esprit/gestionEmployee/entites/Departement.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/tn/esprit/gestionEmployee/entites/DepartementHashSet.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/tn/esprit/gestionEmployee/interfaces/IDepartement.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -21,14 +26,14 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="master" />
++        <entry key="$PROJECT_DIR$" value="prosit9_employe" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 2
+-}]]></component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 2
++}</component>
+   <component name="ProjectId" id="2p5N04kQt9DLwYMtyo2SdGiWD02" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+@@ -40,7 +45,7 @@
+     "Application.Main.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "prosit9__employe",
++    "git-widget-placeholder": "employe",
+     "ignore.virus.scanning.warn.message": "true",
+     "kotlin-language-version-configured": "true",
+     "node.js.detected.package.eslint": "true",
+@@ -67,7 +72,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1732051753020</updated>
+-      <workItem from="1732051754142" duration="2075000" />
++      <workItem from="1732051754142" duration="6769000" />
+     </task>
+     <task id="LOCAL-00001" summary="prosit 9 de employe">
+       <option name="closed" value="true" />
+@@ -85,11 +90,50 @@
+       <option name="project" value="LOCAL" />
+       <updated>1732053655797</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="prosit 9 de employe">
++      <option name="closed" value="true" />
++      <created>1732054120587</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1732054120587</updated>
++    </task>
++    <task id="LOCAL-00004" summary="prosit 9 de employe">
++      <option name="closed" value="true" />
++      <created>1732054396502</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1732054396502</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="master" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
++          </value>
++        </entry>
++      </map>
++    </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="prosit 9 de employe" />
